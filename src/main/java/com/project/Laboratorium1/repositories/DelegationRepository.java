@@ -1,6 +1,6 @@
 package com.project.Laboratorium1.repositories;
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,20 +10,27 @@ import org.springframework.stereotype.Repository;
 
 import com.project.Laboratorium1.model.Delegation;
 import com.project.Laboratorium1.model.TransportType;
+import com.project.Laboratorium1.model.User;
 
 @Repository
 public interface DelegationRepository extends JpaRepository<Delegation, Long> {
 
-	List<Delegation> findByUserOrderByDateTimeStartDesc();
-	List<Delegation> findAllOrderByDateTimeStartDesc();
+	@Query(value = "from Delegation d "
+			+ "where user_user_id = ?1")
+	List<Delegation> findDelegationByUser_UserIdByOrderByDateTimeStartDesc(Long userid);
+	
+	List<Delegation> findAllByOrderByDateTimeStartDesc();
 	@Modifying
-	@Query("update delegation d set d.description = ?1, d.date_time_start = ?2, "
-			+ "d.date_time_start = ?3, d.travel_diet_amount = ?4, d.breakfast_number = ?5, "
-			+ "d.dinner_number = ?6, d.supper_number = ?7, d.transport_type = ?8, "
-			+ "d.ticket_price = ?9, d.auto_capacity = ?10, d.km = ?11, d.accomodation_price = ?12, "
-			+ "d.other_tickets_price = ?13, d.other_outlay_desc = ?14, d.other_outlay_price = ?15 where d.user_id = ?16")
-	void setUserById(String description,Timestamp dateTimeStart,Timestamp dateTimeStop,Double travelDietAmount,
+	@Query("update Delegation d set d.description = ?1, d.dateTimeStart = ?2, "
+			+ "d.dateTimeStop = ?3, d.travelDietAmount = ?4, d.breakfastNumber = ?5, "
+			+ "d.dinnerNumber = ?6, d.supperNumber = ?7, d.transportType = ?8, "
+			+ "d.ticketPrice = ?9, d.autoCapacity = ?10, d.km = ?11, d.accomodationPrice = ?12, "
+			+ "d.otherTicketsPrice = ?13, d.otherOutlayDesc = ?14, d.otherOutlayPrice = ?15 where d.delegationId = ?16")
+	void updateDelegation(String description,Timestamp dateTimeStart,Timestamp dateTimeStop,Double travelDietAmount,
 			Integer breakfastNumber,Integer dinnerNumber,Integer supperNumber,TransportType transportType,
 			Double ticketPrice,Boolean autoCapacity,Long km,Double accomodationPrice,
-			Double otherTicketsPrice,Double otherOutlayDesc,Double otherOutlayPrice, long DelegationId);
+			Double otherTicketsPrice,Double otherOutlayDesc,Double otherOutlayPrice, long delegationId);
+	boolean deleteByDelegationId(Long delegation_id);
+	
+	boolean deleteByUser_UserId(Long userid);
 }

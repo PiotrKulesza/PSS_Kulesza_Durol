@@ -19,21 +19,21 @@ import lombok.Data;
 public class Delegation {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long delegation_id;
+	private Long delegationId;
 	
 	@ManyToOne
 	private User user;
 	
-	@Column(name = "description",nullable = true)
+	@Column(nullable = true)
 	private String description;
 	
-	@Column(name = "dateTimeStart",nullable = false)
+	@Column(nullable = false)
 	private Timestamp dateTimeStart;
 	
-	@Column(name = "dateTimeStop",nullable = false)
+	@Column(nullable = false)
 	private Timestamp dateTimeStop;
 	
-	@Column(name = "travelDietAmount",nullable = false)
+	@Column(nullable = false)
 	private Double travelDietAmount;
 	
 	@Column(nullable = false)

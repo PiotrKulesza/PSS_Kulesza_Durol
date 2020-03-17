@@ -19,48 +19,41 @@ import lombok.Data;
 @Entity
 @Data
 public class User {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long user_id;
-	
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long userId;
+
 	@ManyToMany
-	@JoinTable(
-			name = "ROLE_USER",
-			joinColumns = @JoinColumn(name = "role_id"), 
-			  inverseJoinColumns = @JoinColumn(name = "user_id")
-			)
 	private Set<Role> role;
-	
-	@Column(name = "companyName",nullable = false)
+
+	@Column(name = "companyName", nullable = false)
 	private String companyName;
-	
-	@Column(name = "companyAddress",nullable = false)
+
+	@Column(name = "companyAddress", nullable = false)
 	private String companyAddress;
-	
-	@Column(name = "companyNip",nullable = false)
+
+	@Column(name = "companyNip", nullable = false)
 	private String companyNip;
-	
-	@Column(name = "name",nullable = false)
+
+	@Column(name = "name", nullable = false)
 	private String name;
-	
-	@Column(name = "lastName",nullable = false)
+
+	@Column(name = "lastName", nullable = false)
 	private String lastName;
-	
-	@Column(name = "email",nullable = false)
+
+	@Column(name = "email", nullable = false)
 	private String email;
-	
-	@Column(name = "password",nullable = false)
+
+	@Column(name = "password", nullable = false)
 	private String password;
-	
-	
-	@Column(name = "status",nullable = false)
+
+	@Column(name = "status", nullable = false)
 	private Boolean status;
-	
-	@Column(name = "registrationDate",nullable = false)
+
+	@Column(name = "registrationDate", nullable = false)
 	private Timestamp registrationDate;
+
 	
-	@OneToMany
-	private List<Delegation> delegations;
-	
+
 }

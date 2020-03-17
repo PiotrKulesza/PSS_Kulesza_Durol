@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.Laboratorium1.model.User;
+import com.project.Laboratorium1.repositories.RoleRepository;
 import com.project.Laboratorium1.repositories.UserRepository;
 
 @Service
@@ -13,6 +14,8 @@ public class UserService implements IUserService{
 
 	@Autowired
 	private UserRepository userRepository;
+	@Autowired
+	RoleRepository roleRepository;
 
 	@Override
 	public void save(User user) {
@@ -28,14 +31,19 @@ public class UserService implements IUserService{
 
 	@Override
 	public void updatePassword(long userId, String newPassword) {
-		userRepository.setUserPasswordById(newPassword, userId);
+		userRepository.setUserPasswordByUser_id(newPassword, userId);
 		
 	}
 
 	@Override
-	public void deleteById(long userId) {
+	public boolean deleteById(long user_id) {
+		return userRepository.deleteByUserId(user_id);
+	}
+
+	@Override
+	public List<User> getAllUsersByRoleName(String roleName) {
 		// TODO Auto-generated method stub
-		userRepository.deleteById(userId);
+		return userRepository.findByRole_RoleName(roleName);
 	}
 	
 	

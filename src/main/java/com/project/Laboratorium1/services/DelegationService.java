@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.Laboratorium1.model.Delegation;
+import com.project.Laboratorium1.model.User;
 import com.project.Laboratorium1.repositories.DelegationRepository;
 import com.project.Laboratorium1.repositories.UserRepository;
 
@@ -25,14 +26,23 @@ public class DelegationService implements IDelegationService{
 	}
 
 	@Override
-	public void deleteById(long delegationId) {
+	public boolean deleteById(long delegationId) {
 		// TODO Auto-generated method stub
-		delegationRepository.deleteById(delegationId);
+		
+		return delegationRepository.deleteByDelegationId(delegationId);
 	}
 
 	@Override
 	public void updateDelegation(long DelegationId, Delegation delegation) {
-		// TODO Auto-generated method stub
+		
+		delegationRepository.updateDelegation(delegation.getDescription(),
+				delegation.getDateTimeStart(), delegation.getDateTimeStop(),
+				delegation.getTravelDietAmount(), delegation.getBreakfastNumber(),
+				delegation.getDinnerNumber(), delegation.getSupperNumber(),
+				delegation.getTransportType(), delegation.getTicketPrice(),
+				delegation.getAutoCapacity(), delegation.getKm(),
+				delegation.getAccomodationPrice(), delegation.getOtherTicketsPrice(),
+				delegation.getOtherOutlayDesc(), delegation.getOtherOutlayPrice(), DelegationId);
 		
 	}
 
@@ -45,13 +55,20 @@ public class DelegationService implements IDelegationService{
 	@Override
 	public List<Delegation> findAllOrderByDateStartDesc() {
 		// TODO Auto-generated method stub
-		return delegationRepository.findAllOrderByDateTimeStartDesc();
+		return delegationRepository.findAllByOrderByDateTimeStartDesc();
 	}
 
 	@Override
-	public List<Delegation> findByUserOrderByDateStartDesc() {
+	public List<Delegation> findByUserOrderByDateStartDesc(Long userId) {
 		// TODO Auto-generated method stub
-		return delegationRepository.findByUserOrderByDateTimeStartDesc();
+		return delegationRepository.findDelegationByUser_UserIdByOrderByDateTimeStartDesc(userId);
+	}
+
+
+	@Override
+	public boolean deleteByUser(long userId) {
+		// TODO Auto-generated method stub
+		return delegationRepository.deleteByUser_UserId(userId);
 	}
 
 }

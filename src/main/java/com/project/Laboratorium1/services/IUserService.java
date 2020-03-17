@@ -8,5 +8,6 @@ public interface IUserService {
 	void save(User user);
 	List<User> findAll() ;
 	void updatePassword(long userId, String newPassword);
-	void deleteById(long userId);
+	boolean deleteById(long user_id);
+	List<User> getAllUsersByRoleName(String roleName);
 }
