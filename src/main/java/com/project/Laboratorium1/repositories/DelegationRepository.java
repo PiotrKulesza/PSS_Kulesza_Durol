@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.project.Laboratorium1.model.Delegation;
 import com.project.Laboratorium1.model.TransportType;
@@ -16,10 +17,11 @@ import com.project.Laboratorium1.model.User;
 public interface DelegationRepository extends JpaRepository<Delegation, Long> {
 
 	@Query(value = "from Delegation d "
-			+ "where user_user_id = ?1")
-	List<Delegation> findDelegationByUser_UserIdByOrderByDateTimeStartDesc(Long userid);
+			+ "where user_id = ?1")
+	List<Delegation> findDelegationByUserByOrderByDateTimeStartDesc(Long user_id);
 	
 	List<Delegation> findAllByOrderByDateTimeStartDesc();
+	@Transactional
 	@Modifying
 	@Query("update Delegation d set d.description = ?1, d.dateTimeStart = ?2, "
 			+ "d.dateTimeStop = ?3, d.travelDietAmount = ?4, d.breakfastNumber = ?5, "
@@ -30,7 +32,12 @@ public interface DelegationRepository extends JpaRepository<Delegation, Long> {
 			Integer breakfastNumber,Integer dinnerNumber,Integer supperNumber,TransportType transportType,
 			Double ticketPrice,Boolean autoCapacity,Long km,Double accomodationPrice,
 			Double otherTicketsPrice,Double otherOutlayDesc,Double otherOutlayPrice, long delegationId);
-	boolean deleteByDelegationId(Long delegation_id);
-	
-	boolean deleteByUser_UserId(Long userid);
+	@Transactional
+	@Modifying
+	Integer deleteByDelegationId(Long delegation_id);
+	@Transactional
+	@Modifying
+	@Query(value = "delete from Delegation d "
+			+ "where user_id = ?1")
+	Integer deleteByUser_UserId(Long userid);
 }

@@ -1,11 +1,15 @@
 package com.project.Laboratorium1.model;
 
+
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,10 +18,14 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
 
 	@Id
@@ -54,6 +62,7 @@ public class User {
 	@Column(name = "registrationDate", nullable = false)
 	private Timestamp registrationDate;
 
+	@OneToMany
+    private Set<Delegation> delegations;
 	
-
 }

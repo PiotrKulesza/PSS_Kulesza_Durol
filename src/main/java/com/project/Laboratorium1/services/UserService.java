@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.Laboratorium1.model.User;
-import com.project.Laboratorium1.repositories.RoleRepository;
+import com.project.Laboratorium1.repositories.DelegationRepository;
 import com.project.Laboratorium1.repositories.UserRepository;
 
 @Service
@@ -15,7 +15,7 @@ public class UserService implements IUserService{
 	@Autowired
 	private UserRepository userRepository;
 	@Autowired
-	RoleRepository roleRepository;
+	private DelegationRepository delegationRepository;
 
 	@Override
 	public void save(User user) {
@@ -37,7 +37,10 @@ public class UserService implements IUserService{
 
 	@Override
 	public boolean deleteById(long user_id) {
-		return userRepository.deleteByUserId(user_id);
+		delegationRepository.deleteByUser_UserId(user_id);
+		if(userRepository.deleteByUserId(user_id)==0)
+		return false;
+		else return true;
 	}
 
 	@Override

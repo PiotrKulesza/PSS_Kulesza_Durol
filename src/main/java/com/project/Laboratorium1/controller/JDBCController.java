@@ -1,5 +1,8 @@
 package com.project.Laboratorium1.controller;
 
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.project.Laboratorium1.model.Delegation;
 import com.project.Laboratorium1.model.User;
 import com.project.Laboratorium1.services.IDelegationService;
-import com.project.Laboratorium1.services.IRoleService;
 import com.project.Laboratorium1.services.IUserService;
 
 @RestController
@@ -28,7 +30,8 @@ public class JDBCController {
 	@RequestMapping(value = "/registerUser", method = RequestMethod.POST)
 	@ResponseBody
 	public void registerUser(@ModelAttribute User user) {
-
+		
+		user.setRegistrationDate(new Timestamp(Calendar.getInstance().getTime().getTime()));
 		userService.save(user);
 
 	}
@@ -47,9 +50,11 @@ public class JDBCController {
 
 	@RequestMapping(value = "/deleteUserById", method = RequestMethod.DELETE)
 	@ResponseBody
-	public boolean deleteUserById(@RequestParam("userId") long userId) {
-
-		return userService.deleteById(userId);
+	public boolean deleteUserById(@RequestParam("userId") Integer userId) {
+		
+		
+		
+		return userService.deleteById(userId.longValue());
 
 	}
 
@@ -63,6 +68,7 @@ public class JDBCController {
 	@ResponseBody
 	public void addDelegation(@RequestParam("userId") long userId, @ModelAttribute Delegation delegation) {
 
+		
 		delegationService.save(userId, delegation);
 
 	}
@@ -84,6 +90,9 @@ public class JDBCController {
 	@ResponseBody
 	public void changeDelegation(@RequestParam("delegationId") long delegationId,
 			@ModelAttribute Delegation delegation) {
+		
+		
+		
 		delegationService.updateDelegation(delegationId, delegation);
 	}
 	
