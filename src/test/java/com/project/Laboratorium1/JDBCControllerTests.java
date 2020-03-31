@@ -391,6 +391,75 @@ public class JDBCControllerTests {
 	}
 	
 	@Test
+	public void getAllDelegationsOrderByDateStartDesc() throws Exception{
+		User user;
+
+		user = new User();
+		user.setUserId(3L);
+		user.setCompanyAddress("Wojtyły 12 88-T99 bydgoszcz");
+		user.setCompanyName("PeterCorp");
+		user.setCompanyNip("11111111111");
+		user.setEmail("TEST@gmail.com");
+		user.setLastName("Kowalski");
+		user.setName("Jan");
+		user.setPassword("1234");
+		user.setStatus(true);
+		Role role = new Role();
+		role.setRoleName("Test");
+		role.setRoleId(1L);
+		Set<Role> roles = new HashSet<Role>();
+		roles.add(role);
+		user.setRole(roles);
+		
+		Delegation delegation;
+		delegation = new Delegation();
+		delegation.setDelegationId(1L);
+		delegation.setAccomodationPrice(0.0);
+		delegation.setAutoCapacity(true);
+		delegation.setBreakfastNumber(0);
+		delegation.setDescription("TEST");
+		delegation.setDinnerNumber(0);
+		delegation.setKm(0L);
+		delegation.setOtherOutlayDesc(0.0);
+		delegation.setOtherOutlayPrice(0.0);
+		delegation.setOtherTicketsPrice(0.0);
+		delegation.setSupperNumber(0);
+		delegation.setTicketPrice(0.0);
+		delegation.setTransportType(TransportType.TRAIN);
+		delegation.setTravelDietAmount(0.0);
+		delegation.setUser(user);
+		
+		Delegation delegation2;
+		delegation2 = new Delegation();
+		delegation2.setDelegationId(3L);
+		delegation2.setAccomodationPrice(0.0);
+		delegation2.setAutoCapacity(true);
+		delegation2.setBreakfastNumber(0);
+		delegation2.setDescription("Wafel");
+		delegation2.setDinnerNumber(0);
+		delegation2.setKm(0L);
+		delegation2.setOtherOutlayDesc(0.0);
+		delegation2.setOtherOutlayPrice(0.0);
+		delegation2.setOtherTicketsPrice(0.0);
+		delegation2.setSupperNumber(0);
+		delegation2.setTicketPrice(0.0);
+		delegation2.setTransportType(TransportType.TRAIN);
+		delegation2.setTravelDietAmount(0.0);
+		delegation2.setUser(user);
+		
+		List<Delegation> delegations = Arrays.asList(delegation,delegation2);
+		
+		
+
+		given(delegationService.findAllOrderByDateStartDesc()).willReturn(delegations);
+
+		mvc.perform(get("/getAllDelegationsOrderByDateStartDesc").contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
+				.andExpect(jsonPath("$[0].description", is(delegation.getDescription())));
+		
+		
+	}
+	
+	@Test
 	public void getAllDelByUserOrderByDateStartDescTest() throws Exception{
 		User user;
 
