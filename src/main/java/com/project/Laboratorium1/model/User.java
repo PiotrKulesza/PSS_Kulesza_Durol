@@ -17,6 +17,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -35,31 +38,41 @@ public class User {
 	@ManyToMany
 	private Set<Role> role;
 
-	@Column(name = "companyName", nullable = false)
+	@Column( nullable = false)
+	@NotNull
 	private String companyName;
 
-	@Column(name = "companyAddress", nullable = false)
+	@Column( nullable = false)
+	@NotNull
 	private String companyAddress;
 
-	@Column(name = "companyNip", nullable = false)
+	@Column( nullable = false)
+	@NotNull
 	private String companyNip;
 
-	@Column(name = "name", nullable = false)
+	@Column( nullable = false)
+	@NotNull
 	private String name;
 
-	@Column(name = "lastName", nullable = false)
+	@Column( nullable = false)
+	@NotNull
 	private String lastName;
 
-	@Column(name = "email", nullable = false)
+	@Column( nullable = false)
+	@Pattern(regexp = "^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
+	@NotNull
 	private String email;
 
-	@Column(name = "password", nullable = false)
+	@Column( nullable = false)
+	@NotNull
 	private String password;
 
-	@Column(name = "status", nullable = false)
-	private Boolean status;
+	@Column( nullable = false)
+	@NotNull
+	private Boolean status = true;
 
-	@Column(name = "registrationDate", nullable = false)
+	@Column( nullable = false)
+	@NotNull
 	private Timestamp registrationDate;
 
 	@OneToMany

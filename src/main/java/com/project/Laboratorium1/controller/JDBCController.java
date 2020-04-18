@@ -7,20 +7,18 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.project.Laboratorium1.model.Delegation;
 import com.project.Laboratorium1.model.User;
 import com.project.Laboratorium1.services.IDelegationService;
 import com.project.Laboratorium1.services.IUserService;
 
+import javax.validation.Valid;
+
 @RestController
+@CrossOrigin(origins="http://localhost:3000")
 public class JDBCController {
 	@Autowired
 	private IDelegationService delegationService;
@@ -29,9 +27,10 @@ public class JDBCController {
 
 	@RequestMapping(value = "/registerUser", method = RequestMethod.POST)
 	@ResponseBody
-	public void registerUser(@ModelAttribute User user) {
+	public void registerUser(@Valid @ModelAttribute User user) {
 		
 		user.setRegistrationDate(new Timestamp(Calendar.getInstance().getTime().getTime()));
+		user.setStatus(true);
 		userService.save(user);
 
 	}
@@ -40,6 +39,12 @@ public class JDBCController {
 	@ResponseBody
 	public List<User> getAllUsers() {
 		return userService.findAll();
+	}
+
+	@RequestMapping(value = "/getUser", method = RequestMethod.GET)
+	@ResponseBody
+	public List<User> getUser(@RequestParam("userId") long userId) {
+		return userService.findById(userId);
 	}
 
 	@RequestMapping(value = "/changePassword", method = RequestMethod.PUT)
@@ -66,7 +71,7 @@ public class JDBCController {
 
 	@RequestMapping(value = "/addDelegation", method = RequestMethod.POST)
 	@ResponseBody
-	public void addDelegation(@RequestParam("userId") long userId, @ModelAttribute Delegation delegation) {
+	public void addDelegation(@RequestParam("userId") long userId, @Valid @ModelAttribute Delegation delegation) {
 
 		
 		delegationService.save(userId, delegation);
@@ -89,7 +94,7 @@ public class JDBCController {
 	@RequestMapping(value = "/changeDelegation", method = RequestMethod.PUT)
 	@ResponseBody
 	public void changeDelegation(@RequestParam("delegationId") long delegationId,
-			@ModelAttribute Delegation delegation) {
+								 @Valid @ModelAttribute Delegation delegation) {
 		
 		
 		

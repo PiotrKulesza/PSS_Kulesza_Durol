@@ -1,5 +1,5 @@
 package com.project.Laboratorium1;
-
+/*
 import org.apache.coyote.http11.Http11AprProtocol;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -29,13 +29,13 @@ import com.project.Laboratorium1.model.Role;
 import com.project.Laboratorium1.model.TransportType;
 import com.project.Laboratorium1.model.User;
 import com.project.Laboratorium1.services.DelegationService;
-import com.project.Laboratorium1.services.UserService;
+import com.project.Laboratorium1.services.UserService;*/
 
 //@RunWith(value = SpringJUnit4ClassRunner.class)
-@RunWith(SpringRunner.class)
-@WebMvcTest(JDBCController.class)
+/*@RunWith(SpringRunner.class)
+@WebMvcTest(JDBCController.class)*/
 public class JDBCControllerTests {
-
+/*
 	@Autowired
 	private MockMvc mvc;
 
@@ -569,5 +569,5 @@ public class JDBCControllerTests {
 				.param("delegationId", "3"))
 		.andExpect(status().isOk());
 
-	}
+	}*/
 }

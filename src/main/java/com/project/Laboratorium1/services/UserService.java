@@ -1,5 +1,6 @@
 package com.project.Laboratorium1.services;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,12 @@ public class UserService implements IUserService{
 		// TODO Auto-generated method stub
 		return userRepository.findAll();
 	}
+
+	@Override
+	public List<User> findById(Long userId) {
+		return userRepository.findAllById(Collections.singleton(userId));
+	}
+
 
 	@Override
 	public void updatePassword(long userId, String newPassword) {
