@@ -1,46 +1,60 @@
 import React from "react";
 import {Form,Button,Card,Col} from 'react-bootstrap';
+import GoogleLogin from 'react-google-login';
+import FaceBookLogin from 'react-facebook-login';
+
+const responseGoogle = (response) => {
+    console.log(response);
+}
 
 class Login extends React.Component{
+
+
 
     constructor (props) {
         super(props);
         this.state = {
-            email: '',
+            username: '',
             password: '',
 
         }
-        this.passChange=this.passChange.bind(this);
-        this.submitPassword=this.submitPassword.bind(this);
+        this.loginChange=this.loginChange.bind(this);
+        this.submitLogin=this.submitLogin.bind(this);
     }
 
-    submitPassword(event){
-       alert("Hasła są identyczne");
+    submitLogin(event){
+       alert("Jesteś zalohowany");
 
         event.preventDefault();
     }
 
-    passChange(event){
+
+
+    loginChange(event){
         this.setState({
             [event.target.name]:event.target.value
         });
 
     }
 
+
+
     render() {
         return(
             <Card className={"border border-dark bg-dark text-white"}>
-                <Card.Header>Register</Card.Header>
-                <form onSubmit={this.submitPassword} id={"changePassordId"}>
+                <Card.Header>Login</Card.Header>
+                <form onSubmit={this.submitLogin} id={"loginId"}>
                     <Card.Body>
+
                         <Form.Row>
                             <Form.Group as={Col} controlId="formGridEmail">
-                                <Form.Label>Email address</Form.Label>
+                                <Form.Label>Username (email)</Form.Label>
                                 <Form.Control required
                                               className={"bg-dark text-white"}
-                                              name={"email"}
-                                              value={this.state.email}
-                                              onChange={this.passChange}
+                                              id="username"
+                                              name={"username"}
+                                              value={this.state.username}
+                                              onChange={this.loginChange}
                                               type="email"
                                               placeholder="Enter email" />
 
@@ -53,14 +67,14 @@ class Login extends React.Component{
                                 <Form.Label>Password</Form.Label>
                                 <Form.Control required
                                               className={"bg-dark text-white"}
+                                              id="password"
                                               name={"password"}
                                               value={this.state.password}
-                                              onChange={this.passChange}
+                                              onChange={this.loginChange}
                                               type="password"
                                               placeholder="Password" />
                             </Form.Group>
                         </Form.Row>
-
 
 
 
@@ -71,6 +85,7 @@ class Login extends React.Component{
                         </Button>
                     </Card.Footer>
                 </form>
+
             </Card>
         );
     }

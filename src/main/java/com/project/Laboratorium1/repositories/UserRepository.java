@@ -21,9 +21,13 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	void setUserPasswordByUser_id(String newPassword, Long user_id);
 	
 	List<User> findByRole_RoleName(String roleName);
+
+	List<User> findUserByEmail(String email);
 	
 	@Transactional
 	Integer deleteByUserId(Long user_id);
+
+
 	
 	
 }

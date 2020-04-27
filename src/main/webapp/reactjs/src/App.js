@@ -20,6 +20,7 @@ import NewDelegation from "./components/NewDelegation";
 import WelcomeUser from "./components/WelcomeUser";
 import Delegations from "./components/Delegations";
 import EditDelegation from "./components/EditDelegation";
+import Logged from "./components/Logged"
 
 function App() {
 
@@ -33,6 +34,7 @@ function App() {
             <Route path="/" exact component={NavigationBar}/>
             <Route path="/login" exact component={NavigationBar}/>\
             <Route path="/register" exact component={NavigationBar}/>
+            <Route path={"/Logged"} exact component={NavigationBar}/>
             <Route path="/menu/:userId" exact component={SignedUpBar}/>
             <Route path="/profil/:userId" exact component={SignedUpBar}/>\
             <Route path="/delegations/:userId" exact component={SignedUpBar}/>
@@ -48,6 +50,7 @@ function App() {
                         <Route path="/" exact component={Welcome}/>
                         <Route path="/login" exact component={Login}/>
                         <Route path="/register" exact component={Register}/>
+                        <Route path={"/Logged"} exact component={Logged}/>
                         <Route path="/menu/:userId" exact component={WelcomeUser}/>
                         <Route path="/profil/:userId" exact component={Profil}/>
                         <Route path="/delegations/:userId" exact component={Delegations}/>

@@ -25,6 +25,8 @@ public class JDBCController {
 	@Autowired
 	private IUserService userService;
 
+
+
 	@RequestMapping(value = "/registerUser", method = RequestMethod.POST)
 	@ResponseBody
 	public void registerUser(@Valid @ModelAttribute User user) {
@@ -45,6 +47,12 @@ public class JDBCController {
 	@ResponseBody
 	public List<User> getUser(@RequestParam("userId") long userId) {
 		return userService.findById(userId);
+	}
+
+	@RequestMapping(value = "/getUserByEmail", method = RequestMethod.GET)
+	@ResponseBody
+	public List<User> getUserByEmail(@RequestParam("email") String email) {
+		return userService.findByEmail(email);
 	}
 
 	@RequestMapping(value = "/changePassword", method = RequestMethod.PUT)

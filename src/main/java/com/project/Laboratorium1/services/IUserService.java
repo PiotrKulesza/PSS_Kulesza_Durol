@@ -11,4 +11,6 @@ public interface IUserService {
 	void updatePassword(long userId, String newPassword);
 	boolean deleteById(long user_id);
 	List<User> getAllUsersByRoleName(String roleName);
+
+	List<User> findByEmail(String email);
 }
