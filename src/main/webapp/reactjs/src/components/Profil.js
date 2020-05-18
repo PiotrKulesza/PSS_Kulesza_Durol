@@ -15,16 +15,17 @@ class Profil extends React.Component{
     }
 
     componentDidMount() {
-        const url = "http://localhost:8080/getAllUsers";
+        const url = "http://localhost:8080/getUser?userId=1";
 
-        axios.get("http://localhost:8080/getAllUsers")
+        axios.get("http://localhost:8080/getUser", {params: {
+            userId: this.state.userId
+            }})
             .then(response => response.data)
-            .then((data) =>{
+            .then((data) => {
+                this.setState({users: data})
+            });
 
-                this.setState({users: data});
-
-                });
-        console.log(this.state.users.length);
+       // console.log(this.state.users);
     }
 
     render() {
@@ -43,38 +44,59 @@ class Profil extends React.Component{
                         <tbody>
                         <tr>
                             <td>Name</td>
-                            <td>{this.state.users.name}</td>
+                            {this.state.users.map((user) =>
+                                <td key={user.userId}>{user.name}</td>
+                            )
+                            }
                             <td></td>
                         </tr>
                         <tr>
                             <td>Last Name</td>
-                            <td></td>
+                            {this.state.users.map((user) =>
+                                <td key={user.userId}>{user.lastName}</td>
+                            )
+                            }
                             <td></td>
                         </tr>
                         <tr>
                             <td>Company Name</td>
-                            <td></td>
+                            {this.state.users.map((user) =>
+                                <td key={user.userId}>{user.companyName}</td>
+                            )
+                            }
                             <td></td>
                         </tr>
                         <tr>
                             <td>Company Nip</td>
-                            <td></td>
+                            {this.state.users.map((user) =>
+                                <td key={user.userId}>{user.companyNip}</td>
+                            )
+                            }
                             <td></td>
                         </tr>
                         <tr>
                             <td>Company Adress</td>
-                            <td></td>
+                            {this.state.users.map((user) =>
+                                <td key={user.userId}>{user.companyAddress}</td>
+                            )
+                            }
                             <td></td>
                         </tr>
                         <tr>
                             <td>Email</td>
-                            <td></td>
+                            {this.state.users.map((user) =>
+                                <td key={user.userId}>{user.email}</td>
+                            )
+                            }
                             <td></td>
                         </tr>
                         <tr>
 
                                 <td>Password</td>
-                                <td>tekst</td>
+                            {this.state.users.map((user) =>
+                                <td key={user.userId}>{user.password}</td>
+                            )
+                            }
                                 <td><Nav ><Nav.Link href={"/editpass/"+this.state.userId}>Edytuj</Nav.Link></Nav></td>
 
                         </tr>

@@ -17,8 +17,8 @@ import com.project.Laboratorium1.model.User;
 public interface DelegationRepository extends JpaRepository<Delegation, Long> {
 
 	@Query(value = "from Delegation d "
-			+ "where user_id = ?1")
-	List<Delegation> findDelegationByUserByOrderByDateTimeStartDesc(Long user_id);
+			+ "where user_user_id = ?1")
+	List<Delegation> findByUserByOrderByDateTimeStartDesc(Long user_id);
 	
 	List<Delegation> findAllByOrderByDateTimeStartDesc();
 	@Transactional
@@ -38,6 +38,6 @@ public interface DelegationRepository extends JpaRepository<Delegation, Long> {
 	@Transactional
 	@Modifying
 	@Query(value = "delete from Delegation d "
-			+ "where user_id = ?1")
+			+ "where user_user_id = ?1")
 	Integer deleteByUser_UserId(Long userid);
 }

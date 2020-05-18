@@ -89,7 +89,7 @@ public class DelegationService implements IDelegationService {
 	@Override
 	public List<Delegation> findByUserOrderByDateStartDesc(Long userId) {
 		// TODO Auto-generated method stub
-		return delegationRepository.findDelegationByUserByOrderByDateTimeStartDesc(userId);
+		return delegationRepository.findByUserByOrderByDateTimeStartDesc(userId);
 	}
 
 	@Override

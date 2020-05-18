@@ -2,6 +2,7 @@ import React from "react";
 import {Form,Button,Card,Col} from 'react-bootstrap';
 import GoogleLogin from 'react-google-login';
 import FaceBookLogin from 'react-facebook-login';
+import axios from "axios";
 
 const responseGoogle = (response) => {
     console.log(response);
@@ -16,16 +17,37 @@ class Login extends React.Component{
         this.state = {
             username: '',
             password: '',
-
+            users: []
         }
         this.loginChange=this.loginChange.bind(this);
         this.submitLogin=this.submitLogin.bind(this);
     }
 
     submitLogin(event){
-       alert("Jesteś zalohowany");
+        console.log(this.state.username+"/"+ this.state.password)
 
         event.preventDefault();
+        axios.get("http://localhost:8080/getAllUsers")
+            .then(response => response.data)
+            .then((data) => {
+                this.setState({users: data})
+            });
+        console.log(this.state.users.filter((u) => u.email === this.state.email)
+            //.filter((u) => u.password == this.state.password)
+            .length)
+        this.state.users.filter((u) => (
+            u.email === this.state.email
+        ))
+            .filter((u) => u.password == this.state.password)
+            .length === 0 ?
+            alert("Złe hasło albo email")
+            :
+            this.state.users.filter((u) => u.email == this.state.email)
+                .filter((u) => u.password == this.state.password)
+                .map((u) => (
+                    this.props.history.push("/menu/"+ u.userId)
+                ))
+
     }
 
 

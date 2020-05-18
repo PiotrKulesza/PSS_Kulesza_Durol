@@ -38,12 +38,12 @@ function App() {
             <Route path="/menu/:userId" exact component={SignedUpBar}/>
             <Route path="/profil/:userId" exact component={SignedUpBar}/>\
             <Route path="/delegations/:userId" exact component={SignedUpBar}/>
-            <Route path="/editdelegation/:userId" exact component={SignedUpBar}/>
+            <Route path="/editdelegation/:userId/:delegationId" exact component={SignedUpBar}/>
             <Route path="/editpass/:userId" exact component={SignedUpBar}/>
             <Route path="/adddelegation/:userId" exact component={SignedUpBar}/>
         </Switch>
 
-        <Container>
+        <Container >
             <Row>
                 <Col lg={12} style={marginTop}>
                     <Switch>
